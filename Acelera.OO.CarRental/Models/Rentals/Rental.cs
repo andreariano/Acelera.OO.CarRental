@@ -34,13 +34,25 @@ namespace Acelera.OO.CarRental.Models.Rentals
 
         public decimal CalculateRentalTotal()
         {
-            var total = 0M;
+            return 
+                CalculateRentalDays() + 
+                CalculateKilometerEstimation() + 
+                CalculateSelectedAdditions();
+        }
 
-            total += RentalPeriod.RentalDays * VehicleSelection.Vehicle.DailyPrice;
-            total += RentalPeriod.KilometerEstimation * VehicleSelection.Vehicle.KilometerPrice;
-            total += VehicleSelection.SelectedAdditions.Sum(x => x.Price);
+        private decimal CalculateRentalDays()
+        {
+            return RentalPeriod.RentalDays * VehicleSelection.Vehicle.DailyPrice;
+        }
 
-            return total;
+        private decimal CalculateKilometerEstimation()
+        {
+            return RentalPeriod.KilometerEstimation * VehicleSelection.Vehicle.KilometerPrice;
+        }
+
+        private decimal CalculateSelectedAdditions()
+        {
+            return VehicleSelection.SelectedAdditions.Sum(x => x.Price);
         }
     }
 }

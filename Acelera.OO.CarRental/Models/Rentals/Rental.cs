@@ -1,35 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using Acelera.OO.CarRental.Models.Additions;
-using Acelera.OO.CarRental.Models.Vehicles;
+﻿using System.Linq;
 
 namespace Acelera.OO.CarRental.Models.Rentals
 {
     public class Rental : IRental
     {
-        private readonly IVehicle vehicle;
-        private readonly int kilometerEstimation;
-        private readonly IList<IAddition> selectedAdditions;
-        private readonly DateTime pickupDate;
-        private readonly DateTime dropoffDate;
-
-        public Rental(IVehicle vehicle, int kilometerEstimation, IList<IAddition> selectedAdditions, DateTime pickupDate, DateTime dropoffDate)
+        private Rental()
         {
-            this.vehicle = vehicle;
-            this.kilometerEstimation = kilometerEstimation;
-            this.selectedAdditions = selectedAdditions;
-            this.pickupDate = pickupDate;
-            this.dropoffDate = dropoffDate;
+
         }
 
-        public IVehicle Vehicle => vehicle;
+        public VehicleSelection VehicleSelection { get; private set; }
 
-        public int KilometerEstimation => kilometerEstimation;
+        public RentalPeriod RentalPeriod { get; private set; }
 
-        public IList<IAddition> SelectedAdditions => selectedAdditions;
+        public static Rental New()
+        {
+            return new Rental();
+        }
 
-        public DateTime PickupDate => pickupDate;
+        public Rental WithVehicleSelection(VehicleSelection vehicleSelection)
+        {
+            VehicleSelection = vehicleSelection;
 
-        public DateTime DropOffDate => dropoffDate;
+            return this;
+        }
+
+        public Rental WithRentalPeriod(RentalPeriod rentalPeriod)
+        {
+            RentalPeriod = rentalPeriod;
+
+            return this;
+        }
+
+        public decimal CalculateRentalTotal()
+        {
+            var total = 0M;
+
+            total += RentalPeriod.RentalDays * VehicleSelection.Vehicle.DailyPrice;
+            total += RentalPeriod.KilometerEstimation * VehicleSelection.Vehicle.KilometerPrice;
+            total += VehicleSelection.SelectedAdditions.Sum(x => x.Price);
+
+            return total;
+        }
     }
 }

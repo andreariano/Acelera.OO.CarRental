@@ -2,8 +2,7 @@
 
 namespace Acelera.OO.CarRental.Models.Additions
 {
-    public interface IAvailableAdditions
+    public interface IAdditionsList: IEnumerable<IAddition>
     {
-        IList<IAddition> Additions { get; }
     }
 }

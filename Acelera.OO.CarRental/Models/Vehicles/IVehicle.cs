@@ -8,6 +8,6 @@ namespace Acelera.OO.CarRental.Models.Vehicles
 
         decimal KilometerPrice { get; }
 
-        IAvailableAdditions AvailableAdditions { get; }
+        IAdditionsList AvailableAdditions { get; }
     }
 }

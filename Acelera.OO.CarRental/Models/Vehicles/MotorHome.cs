@@ -2,12 +2,12 @@
 
 namespace Acelera.OO.CarRental.Models.Vehicles
 {
-    public class MotorHome: IVehicle
+    public class MotorHome: IMotorHome
     {
         public decimal DailyPrice => 300M;
 
         public decimal KilometerPrice => 0.65M;
 
-        public IAvailableAdditions AvailableAdditions => new MotorHomeAvailableAdditions();
+        public IAdditionsList AvailableAdditions => new MotorHomeAdditions();
     }
 }

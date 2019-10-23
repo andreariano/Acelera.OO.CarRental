@@ -1,6 +1,6 @@
 ﻿namespace Acelera.OO.CarRental.Models.Additions
 {
-    public abstract class GPS : IAddition
+    public class GPS : IAddition
     {
         public GPS(decimal price)
         {
